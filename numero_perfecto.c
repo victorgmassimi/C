@@ -19,9 +19,9 @@ int numero_perfecto(int a)
 
 int main()
 {
-	int num = 0, resultado=0;
+	long int num = 0, resultado=0;
 	printf("ingresa un numero para calcular si es numero perfecto: ");
-	scanf("%d",&num);
+	scanf("%ld",&num);
 	if (getchar() != '\n');
 
 	resultado = numero_perfecto(num);
