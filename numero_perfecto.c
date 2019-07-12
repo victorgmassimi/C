@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
+
 int numero_perfecto(int a)
 {
 	long int suma=0;
-	for (int i = 0; i < a; i++)
+	for (int i = 1; i < a; i++)
 	{
 		if(a%i == 0)
 		{
@@ -27,9 +28,14 @@ int main()
 	resultado = numero_perfecto(num);
 
 	if(resultado == 1)
+	{
 		printf("Si es numero perfecto\n");
+	}
 	else
+	{
 		printf("No es numero perfecto\n");
+	}
+	getchar();
 
 	printf("\nFin del programa\n");
 	fflush(stdout);
