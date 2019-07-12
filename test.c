@@ -15,6 +15,7 @@ void mpm(int j,int *ma,int *mayo,int *menor,float *p) {
     if(mayo<(ma+i))
         mayo=(ma+i);
   }
+  
   *p=(*p)/(j+1);
 }
 int main(int argc, char const *argv[]) {
