@@ -2,7 +2,7 @@
 
 int main()
 {
-	printf("sublime github test");
+	printf("Hello world");
 
 	return 0;
 }
