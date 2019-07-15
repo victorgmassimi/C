@@ -39,7 +39,7 @@ int identificador(char string[])
 			return 1;
 		else 
 		{
-			for(int i=0;i<10;i++)
+			/*for(int i=0;i<10;i++)
 			{
 				if(string[0]==i)
 					{
@@ -49,7 +49,7 @@ int identificador(char string[])
 			}
 			if (verificar_num==0)
 				return 0;
-			else 
+			else */
 			{
 				if(verificar_letra==0)
 				{

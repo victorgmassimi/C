@@ -33,6 +33,8 @@ int main()
 
 	file=fopen("Test.txt","r");
 
+	fscanf("")
+
 
 	
 
