@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct
@@ -15,16 +16,23 @@ int main()
 	test string_2[2];
 	strcpy(string_1[0].nombre, "Hello_world");
 	strcpy(string_2[0].nombre, "world");
-	string_1[0].telefono = 111111;
-	string_2[0].telefono = 222222;
+	//string_1[0].telefono = 111111;
+	//string_2[0].telefono = 222222;
 
-	file=fopen("Test.txt","a+");
+	file=fopen("Test.txt","wb");
 	if(!file)
 	{
 		perror("ERROR OPENING FILE\n");
-		exit (1);
+		exit(1);
 	}
-	fwrite()
+	fwrite(string_1->nombre,sizeof(test),1,file);
+	fprintf(file, "%d\n",string_1[0].telefono);
+	fwrite(string_2->nombre,sizeof(test),1,file);
+	fprintf(file, "%d\n",string_2[0].telefono);
+	fclose(file);
+
+	file=fopen("Test.txt","r");
+
 
 	
 
