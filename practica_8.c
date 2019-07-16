@@ -19,24 +19,22 @@ void suma()
 	char continuar[2];
 	continuar[0]='s';
 	
-	
-	printf("ingresa un valor a sumar: ");
-	scanf("%d",&suma);
-	if(getchar() != '\n');
 	do
 	{
+		printf("ingresa un valor a sumar: ");
+		scanf("%d",&suma);
+		if(getchar() != '\n');
 		printf("ingresa el siguiente valor a sumar: ");
 		scanf("%d",&a);
 		if(getchar() != '\n');
 		suma = suma + a;
-
-
+		printf("El resultado es: %d\n---------------------------------------------------\n",suma);
 		printf("Sumar otro numero... [s/n]: ");
 		scanf("%c",&continuar[0]);
 		if(getchar() != '\n');
 
-	}while (continuar[0]=='s');
-	printf("El resultado es: %d\n",suma);
+	}while((continuar[0] == 's')||continuar[0] == 'S');
+	
 }
 
 void resta()
@@ -46,25 +44,24 @@ void resta()
 	char continuar[2];
 	continuar[0]='s';
 	
-	
-	printf("ingresa un valor a restar: ");
-	scanf("%d",&resta);
-	if(getchar() != '\n');
-
 	do
 	{
+		printf("ingresa un valor a restar: ");
+		scanf("%d",&resta);
+		if(getchar() != '\n');
+
+	
 		printf("ingresa el siguiente valor a restar: ");
 		scanf("%d",&a);
 		if(getchar() != '\n');
 		resta = resta - a;
-
-
+		printf("El resultado es: %d\n---------------------------------------------------\n",resta);
 		printf("restar otro numero... [s/n]: ");
 		scanf("%c",&continuar[0]);
 		if(getchar() != '\n');
 
-	}while (continuar[0]=='s');
-	printf("El resultado es: %d\n",resta);
+	}while((continuar[0] == 's')||continuar[0] == 'S');
+	
 }
 
 void division()
@@ -78,12 +75,13 @@ void division()
 		scanf("%f",&dividendo);
 		printf("Ingresa un valor por el que dividir: ");
 		scanf("%f",&divisor);
+		if(getchar() != '\n');
 
-		printf("El resultado es: %f\nRealizar nueva operacion [s/n]: ",(dividendo / divisor));
+		printf("El resultado es: %.1f\n---------------------------------------------------\nRealizar nueva division [s/n]: ",(dividendo / divisor));
 		scanf("%c",&continuar[0]);
-		if (getchar() != '\n');
+		if (getchar() != '\n');	
 
-	}while(continuar[0] == 's');
+	}while((continuar[0] == 's')||continuar[0] == 'S');
 }
 
 void multiplicacion()
@@ -97,11 +95,14 @@ void multiplicacion()
 		scanf("%ld",&a);
 		printf("Ingresa un valor por el que multiplicar: ");
 		scanf("%ld",&b);
+		if(getchar() != '\n');
 
-		printf("El resultado es: %ld\nRealizar nueva operacion [s/n]: ",(a * b));
+		printf("El resultado es: %ld\n---------------------------------------------------\nRealizar nueva operacion [s/n]: ",(a * b));
 		scanf("%c",&continuar[0]);
+		if (getchar() != '\n');
 
-	}while(continuar[0] == 's');
+
+	}while((continuar[0] == 's')||continuar[0] == 'S');
 }
 
 void calculadora()
@@ -111,7 +112,7 @@ void calculadora()
 	{
 		
 		continuar[0] = 's';
-		printf("Operacion a realizar: suma, resta, divicion, multiplicacion\n");
+		printf("Operacion a realizar: suma, resta, division, multiplicacion\n");
 		scanf("%s",&operacion[0]);
 	
 	
@@ -131,16 +132,21 @@ void calculadora()
 			case 'd':
 			case 'D':
 				division();
+				break;
 			case 'm':
 			case 'M':
 				multiplicacion();
+				break;
+			default:
+				printf("Opcion invalida\n");
+				break;
 		}
 
 		printf("hacer otra operacion? [s/n]: ");
 		scanf("%c",&continuar[0]);
 		if (getchar() != '\n');
 
-	}while ( continuar[0] == 's');
+	}while((continuar[0] == 's')||continuar[0] == 'S');
 
 		
 }
@@ -163,16 +169,19 @@ void ingresar_contactos()
 
 	do
 	{
+		//if(getchar() != '\n');
 		printf("Ingresa nombre:\n");
 		fgets(contactos.nombre,MAX_LENGTH-1,stdin);
 		strtok(contactos.nombre,"\n");
+		//if(getchar() != '\n');
 		printf("Ingresa telefono: ");
 		scanf("%ld",&contactos.telefono);
 		if(getchar() != '\n');
 		printf("Ingresa correo electronico:\n");
 		fgets(contactos.e_mail,MAX_LENGTH-1,stdin);
 		strtok(contactos.e_mail,"\n");
-		
+		//if(getchar() != '\n');
+		fflush(stdout);
 		fwrite(&contactos,sizeof(persona),1,file);
 
 		printf("Agregar otro contacto: [s/n]\n");
@@ -185,6 +194,7 @@ void ingresar_contactos()
 }
 void buscar_contactos()
 {
+	int find_flag = 0;
 	char buscar_nombre[MAX_LENGTH];
 	persona read;
 	FILE *file;
@@ -197,18 +207,23 @@ void buscar_contactos()
 
 	printf("Ingresa nombre a buscar:\n");
 	fgets(buscar_nombre,MAX_LENGTH-1,stdin);
+	strtok(buscar_nombre,"\n");
 
 	while(!feof(file))
 	{
 
 		fread(&read,sizeof(persona),1,file);
+		
 
 		if(strncmp(buscar_nombre,read.nombre,strlen(buscar_nombre)) == 0)
 		{
-			printf("Nombre: %s\nTelefono: %ld\nE-mail: %s",read.nombre,read.telefono,read.e_mail);
-			fseek(file,0,SEEK_END);
+			printf("\n---------------------------------------------------\nNombre: %s\nTelefono: %ld\nE-mail: %s",read.nombre,read.telefono,read.e_mail);
+			fseek(file,-5,SEEK_END);
+			find_flag = 1;
 		}
 	}
+	if(find_flag == 0)
+		printf("\n---------------------------------------------------\nNo se encontro el contacto\n");
 	fclose(file);
 }
 
@@ -222,7 +237,7 @@ int main()
 
 	do
 	{
-		printf("Accesar agenda o calculadora:\n a = agenda\tc = calculadora\n");
+		printf("Accesar agenda o calculadora:\n a = agenda\tc = calculadora\t 	0 = salir\n");
 		scanf("%c",&escoger_funcion[0]);
 		if(getchar() != '\n');
 		switch( escoger_funcion[0])
@@ -232,40 +247,54 @@ int main()
 				while(agenda_operacion_continuar[0] == 's')
 					do
 					{
-						printf("agregar contactos = a; buscar contactos = b\n");
+						printf("\n---------------------------------------------------\nAgenda\n a = agregar contactos\t b = buscar contactos\n");
 						scanf("%c",&agenda_operacion[0]);
 						if(getchar() != '\n');
+
 						if (agenda_operacion[0] == 'a')
+						{
 							ingresar_contactos();
-						
+							if(getchar() != '\n');
+						}	
 						else if(agenda_operacion[0] == 'b')
-							buscar_contactos();	
+						{
+							buscar_contactos();
+							if(getchar() != '\n');
+						}
 						else if((agenda_operacion[0] != 'a')&&(agenda_operacion[0] != 'b'))
 							printf("Opcion invalida\n");
 
 
-						printf("Buscar de nuevo: ");
+						printf("\n***************************************************\nNueva operacion: [s/n]: ");
 						scanf("%c",&agenda_operacion_continuar[0]);
 						if (getchar() != '\n');
-					}while((agenda_operacion[0] != 'a') && (agenda_operacion[0] != 'b'));
-					printf("\nFin agenda\n");
-					fflush(stdout);
-					sleep(2);
-					clear();
+					}while(agenda_operacion_continuar[0] == 's');
+					printf("\nFin agenda\n presiona tecla para continuar");
+					getchar();
+					clear();	
 					break;
 
 			case 'c':
 				calculadora();
-				printf("\nFin calculadora\n");
-				fflush(stdout);
-				sleep(2);
+				printf("\nFin calculadora\n presiona tecla para continuar");
+				getchar();
+				
 				clear();
 				break;
+
+			default:
+				printf("\n=============================================================\nFin del programa\n presiona tecla para terminar");
+				continuar_programa[0] = 'n';
+				break;
+
 		}
 
 
 
 	}while(continuar_programa[0] == 's');
+	
+	getchar();
+	clear();
 
 	return 0;
 }
