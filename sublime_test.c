@@ -5,39 +5,70 @@
 typedef struct
 {
 	char nombre[15];
-	int telefono;
+	char telefono[15];
 
 }test;
 int main()
 {
+	printf("\e[2J\e[H");
+	int a=0;
 	FILE *file;
-	test *a;
+	test read;
+	test search;
 	test string_1[2];
-	test string_2[2];
-	strcpy(string_1[0].nombre, "Hello_world");
-	strcpy(string_2[0].nombre, "world");
-	//string_1[0].telefono = 111111;
-	//string_2[0].telefono = 222222;
+	
+	strcpy(string_1[0].nombre, "Hello world");
+	strcpy(string_1[1].nombre, "Bye world");
+	strcpy(string_1[0].telefono,"111111");
+	strcpy(string_1[1].telefono,"222222");
 
-	file=fopen("Test.txt","wb");
+	file=fopen("Test.txt","w");
 	if(!file)
 	{
 		perror("ERROR OPENING FILE\n");
 		exit(1);
 	}
-	fwrite(string_1->nombre,sizeof(test),1,file);
-	fprintf(file, "%d\n",string_1[0].telefono);
-	fwrite(string_2->nombre,sizeof(test),1,file);
-	fprintf(file, "%d\n",string_2[0].telefono);
+	fwrite(string_1[0].nombre,sizeof(test),1,file);
+	fwrite(string_1[1].nombre,sizeof(test),1,file);
 	fclose(file);
 
 	file=fopen("Test.txt","r");
+	if(!file)
+	{
+		perror("ERROR OPENING FILE\n");
+		exit(1);
+	}
 
-	fscanf("");
+	strcpy(search.nombre,"Bye");
+	int file_size = fseek(file,0,SEEK_END);
+	fseek(file,0,SEEK_SET);
+	
+	do
+	{
+		fseek(file,a,SEEK_CUR);
+		fgets(read.nombre,15,file);
+		printf("%s\n",read.nombre);
+		/*if ((strncmp(read.nombre,search.nombre,strlen(search.nombre))) == 0)
+		{
+			printf("Nombre: %s\nTelefono: %s\n",read.nombre,read.telefono);
+
+		}
+		else*/
+			a++;
+		
+		
+	}while(a < file_size);
+
+
+	/*fread(read[0].nombre,sizeof(test),1,file);
+	fread(read[1].telefono,sizeof(test),1,file);
+	printf("%s\n",read[0].nombre );
+	printf("%s\n",read[0].telefono );*/
+	
 
 
 	
-
+	fclose(file);
 
 
 	return 0;
