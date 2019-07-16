@@ -11,7 +11,7 @@ typedef struct
 int main()
 {
 	printf("\e[2J\e[H");
-	int a=0;
+	int a=1;
 	FILE *file;
 	test read;
 	test search;
@@ -28,7 +28,7 @@ int main()
 		perror("ERROR OPENING FILE\n");
 		exit(1);
 	}
-	fwrite(string_1[0].nombre,sizeof(test),1,file);
+	fwrite(&string_1[0].nombre,sizeof(test),1,file);
 	fwrite(string_1[1].nombre,sizeof(test),1,file);
 	fclose(file);
 
@@ -40,24 +40,28 @@ int main()
 	}
 
 	strcpy(search.nombre,"Bye");
-	int file_size = fseek(file,0,SEEK_END);
+	//int file_size = fseek(file,0,SEEK_END);
 	fseek(file,0,SEEK_SET);
 	
-	do
+	while(feof(file) != 1)
 	{
-		fseek(file,a,SEEK_CUR);
-		fgets(read.nombre,15,file);
-		printf("%s\n",read.nombre);
-		/*if ((strncmp(read.nombre,search.nombre,strlen(search.nombre))) == 0)
+		//fseek(file,a,SEEK_CUR);
+		//fgets(read.nombre,15,file);
+		//printf("While: %d",a);
+		a++;
+		fread(&read,sizeof(test),1,file);
+		//printf("%s\n",read.nombre);
+		//printf("%s\n",read.telefono);
+		if ((strncmp(read.nombre,search.nombre,strlen(search.nombre))) == 0)
 		{
 			printf("Nombre: %s\nTelefono: %s\n",read.nombre,read.telefono);
 
 		}
-		else*/
-			a++;
 		
 		
-	}while(a < file_size);
+		
+		
+	}
 
 
 	/*fread(read[0].nombre,sizeof(test),1,file);
