@@ -5,6 +5,10 @@
 #define clear() printf("\e[2J\e[H")
 #define MAX_LENGTH 51
 
+
+	//Programa: simulacion de una agenda con una calculadora//
+
+
 typedef struct
 {
 	char nombre[MAX_LENGTH];
