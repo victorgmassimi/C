@@ -62,12 +62,6 @@ int main()
 		
 		
 	}
-
-
-	/*fread(read[0].nombre,sizeof(test),1,file);
-	fread(read[1].telefono,sizeof(test),1,file);
-	printf("%s\n",read[0].nombre );
-	printf("%s\n",read[0].telefono );*/
 	
 
 
